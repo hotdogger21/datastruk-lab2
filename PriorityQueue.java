@@ -17,7 +17,8 @@ public class PriorityQueue<E> {
 	// Adds an item to the priority queue.
 	public void add(E x)
 	{
-		throw new UnsupportedOperationException();
+		heap.add(x);
+		siftUp(heap.size()-1);
 	}
 
 	// Returns the smallest item in the priority queue.

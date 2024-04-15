@@ -17,12 +17,18 @@ public class Bid {
 		Bid bid = (Bid) obj;
 
 		// TODO: compare the objects
-		throw new UnsupportedOperationException();
+		if(bid.name == this.name && bid.bid == this.bid){
+			return true;
+		} else {
+			return false;
+		}
+
+
 	}
 	
 	public String toString(){
 		// TODO: return a description of the bid
-		throw new UnsupportedOperationException();
+		return "Bidder: " + name + ", Bid: " + bid;
 	}
 }
 
