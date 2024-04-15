@@ -50,17 +50,19 @@ public class PriorityQueue<E> {
 		while (parent(index) >= 0){
 			// get value of parent
 			E parentvalue = heap.get(parent(index));
-			int parent = parent(index);
+			// get index of parent
+			int parentindex = parent(index);
 
 			// if parent is less than value replace node with parent then move one node up
 			if (comparator.compare(value,parentvalue) < 0){
 				heap.set(index, parentvalue);
-				index = parent;
+				index = parentindex;
 			}
 			// break if parent is greater than out value
 			else break;
 
 		}
+		//replace node that we stopped on with our value
 		heap.set(index, value);
 	}
      
