@@ -116,4 +116,15 @@ public class PriorityQueue<E> {
 	private final int parent(int index) {
 		return (index-1)/2;
 	}
+
+	public void update(E oldelem, E newelem){
+		int index = heap.indexOf(oldelem);
+		heap.set(index, newelem);
+		if (comparator.compare(newelem, heap.get(parent(index))) < 0){
+			siftUp(index);
+		}
+		else if(comparator.compare(newelem, heap.get(leftChild(index))) > 0 || comparator.compare(newelem, heap.get(rightChild(index))) > 0){
+			siftDown(index);
+		}
+	}
 }
