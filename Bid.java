@@ -28,7 +28,7 @@ public class Bid {
 	
 	public String toString(){
 		// TODO: return a description of the bid
-		return "Bidder: " + name + ", Bid: " + bid;
+		return name + " " + bid;
 	}
 }
 

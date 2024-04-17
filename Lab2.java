@@ -37,9 +37,12 @@ public class Lab2 {
 				sell_pq.add(new Bid(name, price));
 			} else if( action.equals("NK") ){
 				// TODO: update existing buy bid. use parts[3].
+				buy_pq.update(new Bid(name, price),new Bid (name ,Integer.parseInt(parts[3])));
 
 			} else if( action.equals("NS") ){
 				// TODO: update existing sell bid. use parts[3].
+				sell_pq.update(new Bid(name, price),new Bid (name ,Integer.parseInt(parts[3])));
+
 			} else {
 				throw new RuntimeException(
 						"line " + line_no + ": invalid action");
@@ -61,10 +64,18 @@ public class Lab2 {
 		sb.append("Sellers: ");
 		// TODO: print remaining sellers.
 		//       can remove from priority queue until it is empty.
+		while (sell_pq.size() > 0){
+			sb.append(sell_pq.minimum().toString());
+			sell_pq.deleteMinimum();
+		}
 
 		sb.append("Buyers: ");
 		// TODO: print remaining buyers
 		//       can remove from priority queue until it is empty.
+		while (buy_pq.size() > 0){
+			sb.append(buy_pq.minimum().toString());
+			buy_pq.deleteMinimum();
+		}
 
 		return sb.toString();
 	}
