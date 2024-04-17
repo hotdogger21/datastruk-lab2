@@ -5,8 +5,8 @@ import java.util.*;
 public class Lab2 {
 	public static String pureMain(String[] commands) {
 		// TODO: declaration of two priority queues
-		PriorityQueue<Bid>buy_pq;
-		PriorityQueue<Bid>sell_pq;
+		PriorityQueue<Bid>buy_pq = new PriorityQueue<>(new buyerComperator());
+		PriorityQueue<Bid>sell_pq = new PriorityQueue<>(new sellerComperator());
 
 		StringBuilder sb = new StringBuilder();
 
