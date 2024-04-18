@@ -58,6 +58,7 @@ public class PriorityQueue<E> {
 			if (comparator.compare(value,parentvalue) < 0 && index != 0){
 				heap.set(index, parentvalue);
 				index = parentindex;
+				//caca
 			}
 			// break if parent is greater than out value
 			else break;
