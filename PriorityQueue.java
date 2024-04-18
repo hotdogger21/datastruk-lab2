@@ -17,8 +17,10 @@ public class PriorityQueue<E> {
 	// Adds an item to the priority queue.
 	public void add(E x)
 	{
+		assert invariant() : showHeap();
 		heap.add(x);
-		siftUp(heap.indexOf(x));
+		siftUp(heap.size()-1);
+		assert invariant() : showHeap();
 	}
 
 	// Returns the smallest item in the priority queue.
@@ -33,44 +35,48 @@ public class PriorityQueue<E> {
 	// Removes the smallest item in the priority queue.
 	// Throws NoSuchElementException if empty.
 	public void deleteMinimum() {
+		assert invariant() : showHeap();
 		if (size() == 0)
 			throw new NoSuchElementException();
 
 		heap.set(0, heap.get(heap.size()-1));
 		heap.remove(heap.size()-1);
 		if (heap.size() > 0) siftDown(0);
+		assert invariant() : showHeap();
 	}
 
 	// Sifts a node up.
 	// siftUp(index) fixes the invariant if the element at 'index' may
 	// be less than its parent, but all other elements are correct.
 	private void siftUp(int index) {
+		assert invariant() : showHeap();
 		E value = heap.get(index);
 
 		// do this until we reach the root
-		while (parent(index) >= 0){
+		while (parent(index) > 0){
 			// get value of parent
 			E parentvalue = heap.get(parent(index));
 			// get index of parent
 			int parentindex = parent(index);
 
 			// if parent is less than value replace node with parent then move one node up
-			if (comparator.compare(value,parentvalue) < 0 && index != 0){
+			if (comparator.compare(value,parentvalue) < 0){
 				heap.set(index, parentvalue);
 				index = parentindex;
 			}
 			// break if parent is greater than out value
 			else break;
-
 		}
 		//replace node that we stopped on with our value
 		heap.set(index, value);
+		assert invariant() : showHeap();
 	}
      
 	// Sifts a node down.
 	// siftDown(index) fixes the invariant if the element at 'index' may
 	// be greater than its children, but all other elements are correct.
 	private void siftDown(int index) {
+		assert invariant() : showHeap();
 		E value = heap.get(index);
 		
 		// Stop when the node is a leaf.
@@ -102,6 +108,7 @@ public class PriorityQueue<E> {
 		}
 
 		heap.set(index, value);
+		assert invariant() : showHeap();
 	}
 
 	// Helper functions for calculating the children and parent of an index.
@@ -118,6 +125,7 @@ public class PriorityQueue<E> {
 	}
 
 	public void update(E oldelem, E newelem){
+		assert invariant() : showHeap();
 		int index = heap.indexOf(oldelem);
 		heap.set(index, newelem);
 		if (heap.size() > 1){
@@ -128,5 +136,28 @@ public class PriorityQueue<E> {
 				siftDown(index);
 			}
 		}
+		assert invariant() : showHeap();
+	}
+
+	private boolean invariant() {
+		// TODO: return true if and only if the heap invariant is true.
+		if(heap.size() <= 1){
+			return true;
+		}
+
+		for(int i = 0; i < (heap.size()/2) - 2; i++){
+			if(comparator.compare(heap.get(i), heap.get(leftChild(i))) == -1){
+				return false;
+			}
+			if(comparator.compare(heap.get(i), heap.get(rightChild(i))) == -1){
+				return false;
+			}
+		}
+        return true;
+    }
+
+	private String showHeap() {
+		// TODO: return description of heap contents.
+		return "shsowheap";
 	}
 }
