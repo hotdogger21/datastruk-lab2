@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Bid {
 	final public String name;
 	final public int bid;
@@ -17,7 +19,7 @@ public class Bid {
 		Bid bid = (Bid) obj;
 
 		// TODO: compare the objects
-		if(bid.name == this.name && bid.bid == this.bid){
+		if(Objects.equals(bid.name, this.name) && bid.bid == this.bid){
 			return true;
 		} else {
 			return false;
