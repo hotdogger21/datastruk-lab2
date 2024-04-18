@@ -66,14 +66,21 @@ public class Lab2 {
 		//       can remove from priority queue until it is empty.
 		while (sell_pq.size() > 0){
 			sb.append(sell_pq.minimum().toString());
+			if (sell_pq.size() > 1){
+				sb.append(", ");
+			}
 			sell_pq.deleteMinimum();
 		}
+		sb.append("\n");
 
 		sb.append("Buyers: ");
 		// TODO: print remaining buyers
 		//       can remove from priority queue until it is empty.
 		while (buy_pq.size() > 0){
 			sb.append(buy_pq.minimum().toString());
+			if (buy_pq.size() > 1){
+				sb.append(", ");
+			}
 			buy_pq.deleteMinimum();
 		}
 

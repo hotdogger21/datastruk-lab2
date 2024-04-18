@@ -18,7 +18,7 @@ public class PriorityQueue<E> {
 	public void add(E x)
 	{
 		heap.add(x);
-		siftUp(heap.size()-1);
+		siftUp(heap.indexOf(x));
 	}
 
 	// Returns the smallest item in the priority queue.
@@ -48,14 +48,14 @@ public class PriorityQueue<E> {
 		E value = heap.get(index);
 
 		// do this until we reach the root
-		while (parent(index) > 0){
+		while (parent(index) >= 0){
 			// get value of parent
 			E parentvalue = heap.get(parent(index));
 			// get index of parent
 			int parentindex = parent(index);
 
 			// if parent is less than value replace node with parent then move one node up
-			if (comparator.compare(value,parentvalue) < 0){
+			if (comparator.compare(value,parentvalue) < 0 && index != 0){
 				heap.set(index, parentvalue);
 				index = parentindex;
 			}

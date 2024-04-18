@@ -4,6 +4,6 @@ public class buyerComperator implements Comparator<Bid> {
 
     @Override
     public int compare(Bid o1, Bid o2) {
-        return Integer.compare(o1.bid, o2.bid);
+        return Integer.compare(o1.bid, o2.bid)*-1;
     }
 }
