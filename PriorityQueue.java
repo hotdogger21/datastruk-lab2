@@ -19,7 +19,7 @@ public class PriorityQueue<E> {
 	{
 		assert invariant() : showHeap();
 		heap.add(x);
-		siftUp(heap.size()-1);
+		siftUp(heap.indexOf(x));
 		assert invariant() : showHeap();
 	}
 
@@ -53,20 +53,21 @@ public class PriorityQueue<E> {
 		E value = heap.get(index);
 
 		// do this until we reach the root
-		while (parent(index) > 0){
+		while (parent(index) >= 0){
 			// get value of parent
 			E parentvalue = heap.get(parent(index));
 			// get index of parent
 			int parentindex = parent(index);
 
 			// if parent is less than value replace node with parent then move one node up
-			if (comparator.compare(value,parentvalue) < 0){
+			if (comparator.compare(value,parentvalue) < 0 && index != 0){
 				heap.set(index, parentvalue);
 				index = parentindex;
 				//caca
 			}
 			// break if parent is greater than out value
 			else break;
+
 		}
 		//replace node that we stopped on with our value
 		heap.set(index, value);
@@ -140,6 +141,7 @@ public class PriorityQueue<E> {
 		assert invariant() : showHeap();
 	}
 
+
 	private boolean invariant() {
 		// TODO: return true if and only if the heap invariant is true.
 		if(heap.size() <= 1){
@@ -154,11 +156,11 @@ public class PriorityQueue<E> {
 				return false;
 			}
 		}
-        return true;
-    }
-
+		return true;
+	}
 	private String showHeap() {
 		// TODO: return description of heap contents.
-		return "shsowheap";
+		return "showheap";
 	}
+
 }
