@@ -19,14 +19,14 @@ public class PriorityQueue<E> {
 	{
 		assert invariant() : showHeap();
 		heap.add(x);
-		siftUp(heap.indexOf(x));
+		siftUp(heap.size()-1);
 		assert invariant() : showHeap();
 	}
 
 	// Returns the smallest item in the priority queue.
 	// Throws NoSuchElementException if empty.
 	public E minimum() {
-		if (size() == 0)
+        if (size() == 0)
 			throw new NoSuchElementException();
 
 		return heap.get(0);
@@ -36,11 +36,12 @@ public class PriorityQueue<E> {
 	// Throws NoSuchElementException if empty.
 	public void deleteMinimum() {
 		assert invariant() : showHeap();
-		if (size() == 0)
+        if (size() == 0)
 			throw new NoSuchElementException();
 
 		heap.set(0, heap.get(heap.size()-1));
 		heap.remove(heap.size()-1);
+
 		if (heap.size() > 0) siftDown(0);
 		assert invariant() : showHeap();
 	}
@@ -53,20 +54,19 @@ public class PriorityQueue<E> {
 		E value = heap.get(index);
 
 		// do this until we reach the root
-		while (parent(index) >= 0){
+		while (index > 0){
 			// get value of parent
-			E parentvalue = heap.get(parent(index));
+			E parentValue = heap.get(parent(index));
 			// get index of parent
-			int parentindex = parent(index);
+			int parentIndex = parent(index);
 
 			// if parent is less than value replace node with parent then move one node up
-			if (comparator.compare(value,parentvalue) < 0 && index != 0){
-				heap.set(index, parentvalue);
-				index = parentindex;
-				//caca
+			if (comparator.compare(value,parentValue) >= 0){
+				break;
 			}
 			// break if parent is greater than out value
-			else break;
+            heap.set(index, parentValue);
+            index = parentIndex;
 
 		}
 		//replace node that we stopped on with our value
