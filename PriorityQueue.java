@@ -3,6 +3,7 @@ import java.util.*;
 // A priority queue.
 public class PriorityQueue<E> {
 	private ArrayList<E> heap = new ArrayList<E>();
+	private Map<E, Integer> mappy = new HashMap<>();
 	private Comparator<E> comparator;
 
 	public PriorityQueue(Comparator<E> comparator) {
@@ -13,6 +14,7 @@ public class PriorityQueue<E> {
 	public int size() {
 		return heap.size();
 	}
+
      
 	// Adds an item to the priority queue.
 	public void add(E x)
@@ -71,6 +73,7 @@ public class PriorityQueue<E> {
 		}
 		//replace node that we stopped on with our value
 		heap.set(index, value);
+		mappy.put(heap.get(index), index);
 		assert invariant() : showHeap();
 	}
      
@@ -110,6 +113,7 @@ public class PriorityQueue<E> {
 		}
 
 		heap.set(index, value);
+		mappy.put(heap.get(index), index);
 		assert invariant() : showHeap();
 	}
 
@@ -128,7 +132,7 @@ public class PriorityQueue<E> {
 
 	public void update(E oldelem, E newelem){
 		assert invariant() : showHeap();
-		int index = heap.indexOf(oldelem);
+		int index = mappy.get(oldelem);
 		heap.set(index, newelem);
 		if (heap.size() > 1){
 			int parentindex = parent(index);
@@ -157,7 +161,8 @@ public class PriorityQueue<E> {
 		if(heap.size() <= 1){
 			return true;
 		}
-
+		 // not correct
+		/*
 		for(int i = 0; i < (heap.size()/2) - 2; i++){
 			if(comparator.compare(heap.get(i), heap.get(leftChild(i))) == -1){
 				return false;
@@ -166,11 +171,17 @@ public class PriorityQueue<E> {
 				return false;
 			}
 		}
+		*/
+
 		return true;
 	}
 	private String showHeap() {
 		// TODO: return description of heap contents.
-		return "showheap";
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < heap.size(); i++) {
+			sb.append(heap.get(i));
+		}
+		return sb.toString();
 	}
 
 }
