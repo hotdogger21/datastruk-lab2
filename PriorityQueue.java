@@ -43,6 +43,7 @@ public class PriorityQueue<E> {
 
 		heap.set(0, heap.get(heap.size()-1));
 		heap.remove(heap.size()-1);
+		mappy.remove(heap.size()-1);
 
 		if (heap.size() > 0) siftDown(0);
 		assert invariant() : showHeap();
@@ -68,6 +69,7 @@ public class PriorityQueue<E> {
 			}
 			// break if parent is greater than out value
             heap.set(index, parentValue);
+			mappy.put(heap.get(index), index);
             index = parentIndex;
 
 		}
@@ -108,6 +110,7 @@ public class PriorityQueue<E> {
 			// carry on downwards.
 			if (comparator.compare(value, childValue) > 0) {
 				heap.set(index, childValue);
+				mappy.put(heap.get(index), index);
 				index = child;
 			} else break;
 		}
@@ -131,9 +134,11 @@ public class PriorityQueue<E> {
 	}
 
 	public void update(E oldelem, E newelem){
+
 		assert invariant() : showHeap();
 		int index = mappy.get(oldelem);
 		heap.set(index, newelem);
+
 		if (heap.size() > 1){
 			int parentindex = parent(index);
 			int left = leftChild(index);
@@ -152,6 +157,7 @@ public class PriorityQueue<E> {
 				}
 			}
 		}
+		mappy.put(heap.get(index), index);
 		assert invariant() : showHeap();
 	}
 
