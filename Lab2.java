@@ -57,6 +57,15 @@ public class Lab2 {
 			// the highest buyer price, then remove one bid from
 			// each priority queue and add a description of the
 			// transaction to the output.
+			if (buy_pq.minimum().bid >= sell_pq.minimum().bid) {
+				String buyername = buy_pq.minimum().name;
+				String sellername = sell_pq.minimum().name;
+				String buyerprice = Integer.toString(buy_pq.minimum().bid);
+
+				System.out.println(buyername + " buys a share from " + sellername + " for " + buyerprice +"kr");
+				sell_pq.deleteMinimum();
+				buy_pq.deleteMinimum();
+			}
 
 		}
 
