@@ -131,11 +131,21 @@ public class PriorityQueue<E> {
 		int index = heap.indexOf(oldelem);
 		heap.set(index, newelem);
 		if (heap.size() > 1){
-			if (comparator.compare(newelem, heap.get(parent(index))) < 0){
+			int parentindex = parent(index);
+			int left = leftChild(index);
+			int right = rightChild(index);
+
+			if (comparator.compare(newelem, heap.get(parentindex)) < 0){
 				siftUp(index);
 			}
-			else if(comparator.compare(newelem, heap.get(leftChild(index))) > 0 || comparator.compare(newelem, heap.get(rightChild(index))) > 0){
-				siftDown(index);
+			else if (left < heap.size()) {
+				if (comparator.compare(newelem, heap.get(left)) > 0) {
+					siftDown(index);
+				} else if (right < heap.size()) {
+					if (comparator.compare(newelem, heap.get(right)) > 0) {
+						siftDown(index);
+					}
+				}
 			}
 		}
 		assert invariant() : showHeap();

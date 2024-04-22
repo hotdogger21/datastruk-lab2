@@ -57,6 +57,7 @@ public class Lab2 {
 			// the highest buyer price, then remove one bid from
 			// each priority queue and add a description of the
 			// transaction to the output.
+
 		}
 
 		sb.append("Order book:\n");
