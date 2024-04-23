@@ -164,19 +164,21 @@ public class PriorityQueue<E> {
 
 	private boolean invariant() {
 		// TODO: return true if and only if the heap invariant is true.
-		if(heap.size() <= 1){
+		if(heap.size() <= 1) {
 			return true;
 		}
 		for(int i = 0; i <= ((heap.size() - 2)/2); i++){
-			if(leftChild(i) < heap.size() && comparator.compare(heap.get(i), heap.get(leftChild(i))) < 0){
+			if(leftChild(i) < heap.size() && comparator.compare(heap.get(i), heap.get(leftChild(i))) > 0){
 				return false;
 			}
-			if(rightChild(i) < heap.size() && comparator.compare(heap.get(i), heap.get(rightChild(i))) < 0){
+			if(rightChild(i) < heap.size() && comparator.compare(heap.get(i), heap.get(rightChild(i))) > 0){
 				return false;
 			}
 		}
 		return true;
 	}
+
+
 
 	private String showHeap() {
 		// TODO: return description of heap contents.
