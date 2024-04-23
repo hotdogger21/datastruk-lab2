@@ -167,20 +167,17 @@ public class PriorityQueue<E> {
 		if(heap.size() <= 1){
 			return true;
 		}
-		 // not correct
-		/*
-		for(int i = 0; i < (heap.size()/2) - 2; i++){
-			if(comparator.compare(heap.get(i), heap.get(leftChild(i))) == -1){
+		for(int i = 0; i <= ((heap.size() - 2)/2); i++){
+			if(leftChild(i) < heap.size() && comparator.compare(heap.get(i), heap.get(leftChild(i))) < 0){
 				return false;
 			}
-			if(comparator.compare(heap.get(i), heap.get(rightChild(i))) == -1){
+			if(rightChild(i) < heap.size() && comparator.compare(heap.get(i), heap.get(rightChild(i))) < 0){
 				return false;
 			}
 		}
-		*/
-
 		return true;
 	}
+
 	private String showHeap() {
 		// TODO: return description of heap contents.
 		StringBuilder sb = new StringBuilder();
