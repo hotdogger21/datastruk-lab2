@@ -4,7 +4,7 @@ import java.util.*;
 public class PriorityQueue<E> {
 	//(You may assume that all comparisons and hash table operations take O(1) time.)
 	private ArrayList<E> heap = new ArrayList<E>();
-	private Map<E, Integer> mappy = new HashMap<>();
+	private Map<E, Integer> indexmap = new HashMap<>();
 	private Comparator<E> comparator;
 
 	public PriorityQueue(Comparator<E> comparator) {
@@ -44,7 +44,7 @@ public class PriorityQueue<E> {
 
 		heap.set(0, heap.get(heap.size()-1));
 		heap.remove(heap.size()-1);
-		mappy.remove(heap.size()-1);
+		indexmap.remove(heap.size()-1);
 
 		if (heap.size() > 0) siftDown(0);
 		assert invariant() : showHeap();
@@ -71,13 +71,13 @@ public class PriorityQueue<E> {
 			}
 			// break if parent is greater than out value
             heap.set(index, parentValue);
-			mappy.put(heap.get(index), index);
+			indexmap.put(heap.get(index), index);
             index = parentIndex;
 
 		}
 		//replace node that we stopped on with our value
 		heap.set(index, value);
-		mappy.put(heap.get(index), index);
+		indexmap.put(heap.get(index), index);
 	}
      
 	// Sifts a node down.
@@ -110,13 +110,13 @@ public class PriorityQueue<E> {
 			// carry on downwards.
 			if (comparator.compare(value, childValue) > 0) {
 				heap.set(index, childValue);
-				mappy.put(heap.get(index), index);
+				indexmap.put(heap.get(index), index);
 				index = child;
 			} else break;
 		}
 
 		heap.set(index, value);
-		mappy.put(heap.get(index), index);
+		indexmap.put(heap.get(index), index);
 		assert invariant() : showHeap();
 	}
 
@@ -141,7 +141,7 @@ public class PriorityQueue<E> {
 
 		assert invariant() : showHeap();
 		//get index of our element to replace
-		int index = mappy.get(oldelem);
+		int index = indexmap.get(oldelem);
 		//replace previous old element with new element
 		heap.set(index, newelem);
 		if (heap.size() > 1){
@@ -171,7 +171,7 @@ public class PriorityQueue<E> {
 			}
 		}
 		//update the hashmap with the new element
-		mappy.put(heap.get(index), index);
+		indexmap.put(heap.get(index), index);
 		assert invariant() : showHeap();
 	}
 
@@ -205,7 +205,7 @@ public class PriorityQueue<E> {
 			}
 			// check if the current element returns the same index else fail
 			// will also fail if the current element is not in the hashmap since get returns null if an element is not listed as an key
-			if (mappy.get(currentelem) != i){
+			if (indexmap.get(currentelem) != i){
 				return false;
 			}
 		}
