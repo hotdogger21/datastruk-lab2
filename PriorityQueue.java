@@ -138,7 +138,6 @@ public class PriorityQueue<E> {
 		assert invariant() : showHeap();
 		int index = mappy.get(oldelem);
 		heap.set(index, newelem);
-
 		if (heap.size() > 1){
 			int parentindex = parent(index);
 			int left = leftChild(index);
@@ -167,17 +166,23 @@ public class PriorityQueue<E> {
 		if(heap.size() <= 1){
 			return true;
 		}
-		 // not correct
-		/*
-		for(int i = 0; i < (heap.size()/2) - 2; i++){
-			if(comparator.compare(heap.get(i), heap.get(leftChild(i))) == -1){
+
+		for(int i = 0; i < heap.size(); i++){
+
+			int leftChildIndex = leftChild(i);
+			int rightChildIndex = rightChild(i);
+
+			if(leftChildIndex >= heap.size() || rightChildIndex >= heap.size()){
+				break;
+			}
+			if(comparator.compare(heap.get(i), heap.get(leftChildIndex)) == -1){
 				return false;
 			}
-			if(comparator.compare(heap.get(i), heap.get(rightChild(i))) == -1){
+			if(comparator.compare(heap.get(i), heap.get(rightChildIndex)) == -1){
 				return false;
 			}
 		}
-		*/
+
 
 		return true;
 	}
