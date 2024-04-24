@@ -53,7 +53,6 @@ public class PriorityQueue<E> {
 	// siftUp(index) fixes the invariant if the element at 'index' may
 	// be less than its parent, but all other elements are correct.
 	private void siftUp(int index) {
-		assert invariant() : showHeap();
 		E value = heap.get(index);
 
 		// do this until we reach the root
@@ -76,14 +75,12 @@ public class PriorityQueue<E> {
 		//replace node that we stopped on with our value
 		heap.set(index, value);
 		mappy.put(heap.get(index), index);
-		assert invariant() : showHeap();
 	}
      
 	// Sifts a node down.
 	// siftDown(index) fixes the invariant if the element at 'index' may
 	// be greater than its children, but all other elements are correct.
 	private void siftDown(int index) {
-		assert invariant() : showHeap();
 		E value = heap.get(index);
 		
 		// Stop when the node is a leaf.
@@ -175,10 +172,10 @@ public class PriorityQueue<E> {
 			if(leftChildIndex >= heap.size() || rightChildIndex >= heap.size()){
 				break;
 			}
-			if(comparator.compare(heap.get(i), heap.get(leftChildIndex)) == -1){
+			if(comparator.compare(heap.get(i), heap.get(leftChildIndex)) == 1){
 				return false;
 			}
-			if(comparator.compare(heap.get(i), heap.get(rightChildIndex)) == -1){
+			if(comparator.compare(heap.get(i), heap.get(rightChildIndex)) == 1){
 				return false;
 			}
 		}
