@@ -159,7 +159,6 @@ public class PriorityQueue<E> {
 
 
 	private boolean invariant() {
-		// TODO: return true if and only if the heap invariant is true.
 		if(heap.size() <= 1){
 			return true;
 		}
@@ -184,11 +183,12 @@ public class PriorityQueue<E> {
 		return true;
 	}
 	private String showHeap() {
-		// TODO: return description of heap contents.
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < heap.size(); i++) {
+
+		for(int i = 0; i < heap.size(); ++i) {
 			sb.append(heap.get(i));
 		}
+
 		return sb.toString();
 	}
 

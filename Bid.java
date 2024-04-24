@@ -1,4 +1,3 @@
-import java.util.Objects;
 
 public class Bid {
 	final public String name;
@@ -18,18 +17,15 @@ public class Bid {
 
 		Bid bid = (Bid) obj;
 
-		// TODO: compare the objects
-		if(Objects.equals(bid.name, this.name) && bid.bid == this.bid){
+		// compares the bid name and bid value
+		if(bid.hashCode() == this.hashCode()) {
 			return true;
-		} else {
-			return false;
 		}
 
-
+		return false;
 	}
 	
 	public String toString(){
-		// TODO: return a description of the bid
 		return name + " " + bid;
 	}
 }
