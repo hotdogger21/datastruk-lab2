@@ -2,6 +2,7 @@ import java.util.*;
 
 // A priority queue.
 public class PriorityQueue<E> {
+	//(You may assume that all comparisons and hash table operations take O(1) time.)
 	private ArrayList<E> heap = new ArrayList<E>();
 	private Map<E, Integer> mappy = new HashMap<>();
 	private Comparator<E> comparator;
@@ -53,11 +54,13 @@ public class PriorityQueue<E> {
 	// siftUp(index) fixes the invariant if the element at 'index' may
 	// be less than its parent, but all other elements are correct.
 	private void siftUp(int index) {
+		//complexity O(log n)
 		E value = heap.get(index);
 
 		// do this until we reach the root
 		while (index > 0){
 			// get value of parent
+			// we can do this max log 2 n times
 			E parentValue = heap.get(parent(index));
 			// get index of parent
 			int parentIndex = parent(index);
@@ -119,30 +122,44 @@ public class PriorityQueue<E> {
 
 	// Helper functions for calculating the children and parent of an index.
 	private final int leftChild(int index) {
+		//complexity O(1)
 		return 2*index+1;
 	}
 
 	private final int rightChild(int index) {
+		//complexity O(1)
 		return 2*index+2;
 	}
 
 	private final int parent(int index) {
+		//complexity O(1)
 		return (index-1)/2;
 	}
 
 	public void update(E oldelem, E newelem){
+		//complexity O(1)
 
 		assert invariant() : showHeap();
+		//get index of our element to replace
 		int index = mappy.get(oldelem);
+		//replace previous old element with new element
 		heap.set(index, newelem);
 		if (heap.size() > 1){
+			//time to check the heap when we have replaced an element
+
+			//get the index of parent of our current element
 			int parentindex = parent(index);
+			//get index left and right children
 			int left = leftChild(index);
 			int right = rightChild(index);
 
+
+            //compare our current element with the parent to determine if we need to sift up
+			//if parent doesn't exist index should we dont need to sift up
 			if (comparator.compare(newelem, heap.get(parentindex)) < 0){
 				siftUp(index);
 			}
+			//compare both children with current element so determine if we need so sift down
 			else if (left < heap.size()) {
 				if (comparator.compare(newelem, heap.get(left)) > 0) {
 					siftDown(index);
@@ -153,6 +170,7 @@ public class PriorityQueue<E> {
 				}
 			}
 		}
+		//update the hashmap with the new element
 		mappy.put(heap.get(index), index);
 		assert invariant() : showHeap();
 	}
@@ -161,6 +179,7 @@ public class PriorityQueue<E> {
 	private boolean invariant() {
 		// TODO: return true if and only if the heap invariant is true.
 		// if heap is of size 1 the invariant is true
+		// complexity O(n)
 		if(heap.size() <= 1){
 			return true;
 		}
@@ -195,6 +214,7 @@ public class PriorityQueue<E> {
 	}
 	private String showHeap() {
 		// TODO: return description of heap contents.
+		// complexity O(n)
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < heap.size(); i++) {
 			sb.append(heap.get(i));
