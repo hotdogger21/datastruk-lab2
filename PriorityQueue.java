@@ -160,26 +160,36 @@ public class PriorityQueue<E> {
 
 	private boolean invariant() {
 		// TODO: return true if and only if the heap invariant is true.
+		// if heap is of size 1 the invariant is true
 		if(heap.size() <= 1){
 			return true;
 		}
 
 		for(int i = 0; i < heap.size(); i++){
 
+            // get current element and corresponding children
+			E currentelem = heap.get(i);
 			int leftChildIndex = leftChild(i);
 			int rightChildIndex = rightChild(i);
 
+			// if current child indexes are outside heap we have reached a leaf, thus the invariant is true
 			if(leftChildIndex >= heap.size() || rightChildIndex >= heap.size()){
 				break;
 			}
+			// compare parent value with left child, return false if expected behaviour is not met. (depends on comperator)
 			if(comparator.compare(heap.get(i), heap.get(leftChildIndex)) == 1){
 				return false;
 			}
+			// vice versa with right child
 			if(comparator.compare(heap.get(i), heap.get(rightChildIndex)) == 1){
 				return false;
 			}
+			// check if the current element returns the same index else fail
+			// will also fail if the current element is not in the hashmap since get returns null if an element is not listed as an key
+			if (mappy.get(currentelem) != i){
+				return false;
+			}
 		}
-
 
 		return true;
 	}
